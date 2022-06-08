@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 import { useEffect } from 'react'
 import { getPages, getPage, getBlocks } from '../lib/notion'
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { format } from 'date-fns'
 
 const renderBlock = (block: any) => {
@@ -55,7 +55,7 @@ const Home: NextPage<Props> = (props) => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className="text-xl">
+        <h1 className="text-3xl font-bold">
           {props.page.properties.Name.title[0].plain_text}
         </h1>
         <div>Created</div>
