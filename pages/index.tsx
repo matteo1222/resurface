@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { getPages, getPage, getBlocks } from '../lib/notion'
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { format } from 'date-fns'
 
 const renderBlock = (block: any) => {
   switch (block.type) {
@@ -54,9 +55,13 @@ const Home: NextPage<Props> = (props) => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        <h1 className="text-xl">
+          {props.page.properties.Name.title[0].plain_text}
         </h1>
+        <div>Created</div>
+        <div>{format(new Date(props.page.created_time), 'LLLL dd, yyyy a..aa')}</div>
+        <div>Tags</div>
+        <div>{props.page.properties.Tags.multi_select.map(select => <span>{select.name}</span>)}</div>
         {props.blocks.map(block => {
           return renderBlock(block)
         })}
