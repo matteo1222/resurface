@@ -20,6 +20,10 @@ const renderBlock = (block: any) => {
           </code>
         </pre>
       )
+    case 'paragraph':
+      return (
+        <div>{block.paragraph.rich_text.map(text => <p>{text.plain_text}</p>)}</div>
+      )
   }
 }
 
@@ -59,9 +63,9 @@ const Home: NextPage<Props> = (props) => {
           {props.page.properties.Name.title[0].plain_text}
         </h1>
         <div>Created</div>
-        <div>{format(new Date(props.page.created_time), 'LLLL dd, yyyy a..aa')}</div>
+        <div>{format(new Date(props.page.created_time), 'LLLL dd, yyyy H:mm aa')}</div>
         <div>Tags</div>
-        <div>{props.page.properties.Tags.multi_select.map(select => <span>{select.name}</span>)}</div>
+        <div>{props.page.properties.Tags.multi_select.map(select => <span key={select.id}>{select.name}</span>)}</div>
         {props.blocks.map(block => {
           return renderBlock(block)
         })}
