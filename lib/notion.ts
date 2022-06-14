@@ -1,5 +1,8 @@
 import { Client } from "@notionhq/client"
+import { NotionCompatAPI } from 'notion-compat'
+import { NotionAPI } from 'notion-client'
 
+const notionAPI = new NotionCompatAPI(new Client({ auth: process.env.NOTION_KEY }))
 const notion = new Client({ auth: process.env.NOTION_KEY })
 const databaseId = `${process.env.NOTION_DATABASE_ID}`
 
@@ -20,4 +23,9 @@ export async function getBlocks(id: string) {
     block_id: id
   })
   return results
+}
+
+export async function getRecordMap(id: string) {
+  const recordMap = await notionAPI.getPage(id)
+  return recordMap
 }
